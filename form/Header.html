@@ -1,0 +1,47 @@
+{{ define "Header" }}
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>CMS</title>
+        <meta charset="UTF-8" />
+        <style>
+            .header {
+                background-color: 05245D;
+                color: white;
+            }
+            body {
+                background-color: linen;
+            }
+            h1 {
+                color:white;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+            li {
+                float: left;
+            }
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            li a:hover {
+                background-color: #111;
+            }
+        </style>
+        <table class="header">
+            <tr>
+                <th><img src="JL.png"></th>
+                <th><h1>Court Management System</h1></th>
+            </tr>
+        </table>
+    </head>
+    <body>
+{{ end }}

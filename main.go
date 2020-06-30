@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"html/template"
 	"io/ioutil"
@@ -11,19 +10,6 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 )
-
-func dbConn() (db *sql.DB) {
-	dbDriver := "mysql"
-	dbUser := "cgdavis"
-	dbPass := "DzftXvz$eR7VpY^h"
-	dbServer := "tcp(172.18.105.227:3306)"
-	dbName := "people"
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@"+dbServer+"/"+dbName)
-	if err != nil {
-		panic(err.Error())
-	}
-	return db
-}
 
 var tmpl = template.Must(template.ParseGlob("form/*"))
 
