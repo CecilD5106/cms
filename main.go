@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"text/template"
 
 	_ "github.com/go-sql-driver/mysql"
 )
