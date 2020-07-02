@@ -7,8 +7,6 @@ import (
 	"net/http"
 	"os"
 	"text/template"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 var tmpl = template.Must(template.ParseGlob("form/*"))
@@ -31,7 +29,14 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", Index)
+
+	fileServer := http.FileServer(http.Dir("./img/"))
+
+	mux.Handle("/img/", http.StripPrefix("/img", fileServer))
+
+	err := http.ListenAndServe(":8080", mux)
+	log.Fatal(err)
 	log.Println("Server started on port 8080")
-	http.HandleFunc("/", Index)
-	http.ListenAndServe(":8080", nil)
 }
