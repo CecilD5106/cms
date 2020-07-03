@@ -8,8 +8,12 @@ import (
 	"log"
 	"net/http"
 	"os"
+<<<<<<< HEAD
 
 	_ "github.com/go-sql-driver/mysql"
+=======
+	"text/template"
+>>>>>>> e62f5adcad85e6d23508b0ec9e8ac04d36624705
 )
 
 // Person is the structure for a person object
@@ -61,7 +65,13 @@ func main() {
 
 	mux.Handle("/img/", http.StripPrefix("/img", fileServer))
 
+<<<<<<< HEAD
 	log.Println("Server started on port 8080")
 	err := http.ListenAndServe(":8080", mux)
 	log.Fatal(err)
+=======
+	err := http.ListenAndServe(":8080", mux)
+	log.Fatal(err)
+	log.Println("Server started on port 8080")
+>>>>>>> e62f5adcad85e6d23508b0ec9e8ac04d36624705
 }
