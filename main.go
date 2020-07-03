@@ -1,37 +1,67 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-	"text/template"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// Person is the structure for a person object
+type Person struct {
+	ID    string `json:"person_id"`
+	FName string `json:"first_name"`
+	LName string `json:"last_name"`
+}
+
+// Response is a list of person objects
+type Response struct {
+	People []Person `json:"result"`
+}
+
 var tmpl = template.Must(template.ParseGlob("form/*"))
 
+// Index request data and displays the Index page
 func Index(w http.ResponseWriter, r *http.Request) {
-	response, err := http.Get("Input URL")
-
+	response, err := http.Get("http://localhost:8000/getpeople")
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
 
 	responseData, err := ioutil.ReadAll(response.Body)
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(responseData))
+	var responseObject Response
+	json.Unmarshal(responseData, &responseObject)
+
+	person := Person{}
+	res := []Person{}
+	for i := 0; i < len(responseObject.People); i++ {
+		person.ID = responseObject.People[i].ID
+		person.FName = responseObject.People[i].FName
+		person.LName = responseObject.People[i].LName
+		res = append(res, person)
+	}
+	tmpl.ExecuteTemplate(w, "Index", res)
 }
 
 func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", Index)
+
+	fileServer := http.FileServer(http.Dir("./img/"))
+
+	mux.Handle("/img/", http.StripPrefix("/img", fileServer))
+
 	log.Println("Server started on port 8080")
-	http.HandleFunc("/", Index)
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", mux)
+	log.Fatal(err)
 }
