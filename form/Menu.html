@@ -8,12 +8,21 @@
 </div>
 
 <div class="topnav" id="myTopnav">
-    <a href="#home" class="active">Case</a>
+    <a href="#home">Case</a>
     <a href="#news">Person</a>
     <a href="#contact">Accounting</a>
     <a href="#about">Jury</a>
     <a href="#about">Attorney</a>
-    <a href="#about">Configuration</a>
+    <div class="dropdown">
+        <button class="dropbtn">Configuration 
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="/UserList">List Users</a>
+          <a href="/NewUser">Add New User</a>
+          <a href="#">Link 3</a>
+        </div>
+      </div> 
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
     </a>

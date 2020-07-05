@@ -1,30 +1,6 @@
 {{ define "Index" }}
     {{ template "Header" }}
         {{ template "Menu" }}
-        <h2> People </h2>
-        <table borderr="1">
-            <thead>
-            <tr>
-                <td>ID</td>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>View</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
-            </thead>
-            <tbody>
-            {{ range . }}
-            <tr>
-                <td>{{ .ID }}</td>
-                <td>{{ .FName }}</td>
-                <td>{{ .LName }}</td>
-                <td><a href="/show?id={{ .ID }}">View</a></td>
-                <td><a href="/edit?id={{ .ID }}">Edit</a></td>
-                <td><a href="/delete?id={{ .ID }}">Delete</a></td>
-            </tr>
-            {{ end }}
-            </tbody>
-            </table>
+        <h1 style="text-align: center; padding: 20px;">Court Management System</h1>
     {{ template "Footer" }}
 {{ end }}

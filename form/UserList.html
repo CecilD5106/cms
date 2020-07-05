@@ -1,0 +1,36 @@
+{{ define "UserList" }}
+    {{ template "Header" }}
+        {{ template "Menu" }}
+        <h2 style="text-align: center;"> User List </h2>
+        <table borderr="1" style="padding: 10px;">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Username</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Last Logon</td>
+                <td>Account Locked</td>
+                <td>View</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+            <tbody>
+            {{ range . }}
+            <tr>
+                <td>{{ .ID }}</td>
+                <td>{{ .UserName }}</td>
+                <td>{{ .FName }}</td>
+                <td>{{ .LName }}</td>
+                <td>{{ .LastLogon }}</td>
+                <td>{{ .AccountLocked }}</td>
+                <td><a href="/show?id={{ .ID }}">View</a></td>
+                <td><a href="/edit?id={{ .ID }}">Edit</a></td>
+                <td><a href="/delete?id={{ .ID }}">Delete</a></td>
+            </tr>
+            {{ end }}
+            </tbody>
+            </table>
+    {{ template "Footer" }}
+{{ end }}

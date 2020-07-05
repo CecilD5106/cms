@@ -1,0 +1,50 @@
+{{ define "NewUser" }}
+    {{ template "Header" }}
+    {{ template "Menu" }}
+    <h2>New User</h2>
+        <form method="POST" action="insertuser">
+            <table>
+                <tr>
+                    <td><label>User Name</label></td>
+                    <td><input type="text" name="username" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Email</label></td>
+                    <td><input type="text" name="useremail" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>First Name</label></td>
+                    <td><input type="text" name="fname" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Last Name  </label></td>
+                    <td><input type="text" name="lname" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Password</label></td>
+                    <td><input type="password" name="password" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Password Change</label></td>
+                    <td><input type="date" name="passwordchange" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Password Expired</label></td>
+                    <td><input type="checkbox" name="passwordexpired" value="1"/><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Last Logon</label></td>
+                    <td><input type="date" name="lastlogon" /><br /></td>
+                </tr>
+                <tr>
+                    <td><label>Account Locked</label></td>
+                    <td><input type="checkbox" name="accountlocked" value="1"/><br /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Save User" /></td>
+                </tr>
+            </table>
+        </form>
+    {{ template "Footer" }}
+{{ end }}
