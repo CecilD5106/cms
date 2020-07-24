@@ -38,7 +38,7 @@ var tmpl = template.Must(template.ParseGlob("form/*"))
 
 const pwdSalt = "5X!cw*V9byQ3@v9ct!Cv&Lq4X#m8Ci27pteC&n7$6Nq4VUgkqzP5woC7oK!5stXH*zJ9W86E@GpgCjP78jGoWsrA@jkMWPkF&avNKi6grWs@$bMr7pg&3hyf"
 
-// UserList request data and displays the user list page
+// UserList request data and displays the gituser list page
 func UserList(w http.ResponseWriter, r *http.Request) {
 	response, err := http.Get("http://localhost:8000/v1/getusers")
 	if err != nil {
