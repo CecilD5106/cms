@@ -40,7 +40,7 @@ const pwdSalt = "5X!cw*V9byQ3@v9ct!Cv&Lq4X#m8Ci27pteC&n7$6Nq4VUgkqzP5woC7oK!5stX
 
 // UserList request data and displays the gituser list page
 func UserList(w http.ResponseWriter, r *http.Request) {
-	response, err := http.Get("http://localhost:8000/v1/getusers")
+	response, err := http.Get("http://uapi:8000/v1/getusers")
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
@@ -113,7 +113,7 @@ func InsertUser(w http.ResponseWriter, r *http.Request) {
 
 		jsonData := map[string]string{"user_name": username, "user_email": useremail, "user_first_name": fname, "user_last_name": lname, "password": pwd, "password_change": pwdChg, "password_expired": pwdExp, "last_logon": lstLgn, "account_locked": acctLkd}
 		jsonValue, _ := json.Marshal(jsonData)
-		res, err := http.Post("http://localhost:8000/v1/createuser", "application/json", bytes.NewBuffer(jsonValue))
+		res, err := http.Post("http://uapi:8000/v1/createuser", "application/json", bytes.NewBuffer(jsonValue))
 		if err != nil {
 			panic(err.Error())
 		} else {
