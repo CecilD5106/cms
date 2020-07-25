@@ -11,8 +11,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-
-	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/go-sql-driver/mysql"
 )
 
 // User is the structure for a user object
