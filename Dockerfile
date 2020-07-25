@@ -29,7 +29,7 @@ COPY ./form/NewUser.html /app/form/NewUser.html
 COPY ./form/Show.html /app/form/Show.html
 COPY ./form/UserList.html /app/form/UserList.html
 COPY ./img/JB.jpg /app/img/JB.jpg
-COPY ./img/JL.jpg /app/img/JL.jpg
+COPY ./img/JL.png /app/img/JL.png
 
 EXPOSE 8080
 
