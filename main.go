@@ -1,18 +1,15 @@
 package main
 
 import (
-	"bytes"
-	"crypto/sha512"
-	"encoding/base64"
-	"encoding/json"
-	"fmt"
 	"html/template"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
+
+	"github.com/cms/cms/controller"
 )
 
+/*
 // User is the structure for a user object
 type User struct {
 	ID              string `json:"user_id"`
@@ -119,8 +116,9 @@ func InsertUser(w http.ResponseWriter, r *http.Request) {
 			fmt.Println(string(data))
 		}
 	}
-	http.Redirect(w, r, "/UserList", 301)
+	http.Redirect(w, r, "/userlist", 301)
 }
+*/
 
 func main() {
 	/*
@@ -139,33 +137,13 @@ func main() {
 		log.Fatal(err)
 	*/
 	templates := populateTemplates()
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		requestedFile := r.URL.Path[1:]
-		template := templates[requestedFile+".html"]
-		var context interface{}
-		switch requestedFile {
-		case "userlist":
-			context = viewmodel.NewUserList()
-		default:
-			context = viewmodel.NewHome()
-		}
-		if template != nil {
-			err := template.Execute(w, context)
-			if err != nil {
-				log.Println(err)
-			}
-		} else {
-			w.WriteHeader(404)
-		}
-	})
-	http.Handle("/img/", http.FileServer(http.Dir("public")))
-	http.Handle("/css/", http.FileServer(http.Dir("public")))
+	controller.Startup(templates)
 	http.ListenAndServe(":8000", nil)
 }
 
 func populateTemplates() map[string]*template.Template {
 	result := make(map[string]*template.Template)
-	const basePath = "templates"
+	const basePath = "src/github.com/cms/cms/templates"
 	layout := template.Must(template.ParseFiles(basePath + "/_layout.html"))
 	template.Must(layout.ParseFiles(basePath+"/_header.html", basePath+"/_footer.html"))
 	dir, err := os.Open(basePath + "/content")

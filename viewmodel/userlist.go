@@ -1,53 +1,30 @@
 package viewmodel
-
-type Shop struct {
+// CMS is the basic information on the page
+type CMS struct {
 	Title      string
 	Active     string
-	Categories []Category
+	Users 	   []User
 }
 
-type Category struct {
-	URL           string
-	ImageURL      string
-	Title         string
-	Description   string
-	IsOrientRight bool
+// User is the basic information in the user table
+type User struct {
+	ID              string `json:"user_id"`
+	UserName        string `json:"user_name"`
+	UserEmail       string `json:"user_email"`
+	FName           string `json:"user_first_name"`
+	LName           string `json:"user_last_name"`
+	Password        string `json:"password"`
+	PasswordChange  string `json:"password_change"`
+	PasswordExpired string `json:"password_expired"`
+	LastLogon       string `json:"last_logon"`
+	AccountLocked   string `json:"account_locked"`
 }
 
-func NewUserList() Shop {
-	result := Shop{
-		Title:  "Lemonade Stand Supply - Shop",
-		Active: "shop",
+// NewUserList populates data for the User List page
+func NewUserList() CMS {
+	result := CMS{
+		Title:  "AR CMS",
+		Active: "config",
 	}
-	juiceCategory := Category{
-		URL:      "/shop_details",
-		ImageURL: "lemon.png",
-		Title:    "Juices and Mixes",
-		Description: `Explore our wide assortment of juices and mixes expected by
-							today's lemonade stand clientelle. Now featuring a full line of
-							organic juices that are guaranteed to be obtained from trees that
-							have never been treated with pesticides or artificial
-							fertilizers.`,
-		IsOrientRight: false,
-	}
-	supplyCategory := Category{
-		URL:      ".",
-		ImageURL: "kiwi.png",
-		Title:    "Cups, Straws, and Other Supplies",
-		Description: `From paper cups to bio-degradable plastic to straws and
-						napkins, LSS is your source for the sundries that keep your stand
-						running smoothly.`,
-		IsOrientRight: true,
-	}
-	advertiseCategory := Category{
-		URL:      ".",
-		ImageURL: "pineapple.png",
-		Title:    "Signs and Advertising",
-		Description: `Sure, you could just wait for people to find your stand
-						along the side of the road, but if you want to take it to the next
-						level, our premium line of advertising supplies.`,
-		IsOrientRight: false,
-	}
-	result.Categories = []Category{juiceCategory, supplyCategory, advertiseCategory}
 	return result
 }
