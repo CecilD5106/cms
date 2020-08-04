@@ -142,7 +142,8 @@ func InsertUser(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", Index)
+	mux.HandleFunc("/", Logon)
+	mux.HandleFunc("/Home", Index)
 	mux.HandleFunc("/NewUser", NewUser)
 	mux.HandleFunc("/insertuser", InsertUser)
 	mux.HandleFunc("/UserList", UserList)
