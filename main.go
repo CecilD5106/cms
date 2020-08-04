@@ -11,7 +11,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	//_ "github.com/go-sql-driver/mysql"
 )
 
 // User is the structure for a user object
@@ -79,6 +78,10 @@ func Index(w http.ResponseWriter, r *http.Request) {
 //NewUser opens the new user page in edit mode
 func NewUser(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "NewUser", nil)
+}
+
+func Logon(w http.ResponseWriter, r *http.Request) {
+	tmpl.ExecuteTemplate(w, "Logon", nil)
 }
 
 //InsertUser saves the data from the NewUser page to the database
