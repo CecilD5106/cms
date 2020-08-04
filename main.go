@@ -80,8 +80,22 @@ func NewUser(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "NewUser", nil)
 }
 
+//Logon opens the logon page in edit mode
 func Logon(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "Logon", nil)
+}
+
+//VerifyLogon checks the password submitted by the user
+func VerifyLogon(w http.ResponseWriter, r *http.Request) {
+	//Get User from api
+
+	//Create password hash from data on the form
+
+	//Compare password hash
+
+	//If fail loop through the 3 times
+
+	//If successful move to Index page
 }
 
 //InsertUser saves the data from the NewUser page to the database
