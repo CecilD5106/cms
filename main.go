@@ -90,6 +90,7 @@ func VerifyLogon(w http.ResponseWriter, r *http.Request) {
 	//Get User from api
 
 	//Create password hash from data on the form
+	//Hash username, salt and password
 
 	//Compare password hash
 
