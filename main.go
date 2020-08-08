@@ -88,15 +88,54 @@ func Logon(w http.ResponseWriter, r *http.Request) {
 //VerifyLogon checks the password submitted by the user
 func VerifyLogon(w http.ResponseWriter, r *http.Request) {
 	//Get User from api
+	if r.Method == "POST" {
+		username := r.FormValue("uname")
+		password := r.FormValue("psw")
+		response, err := http.Get("http://uapi:8000/v1/getuserusername/" + username)
+		if err != nil {
+			fmt.Print(err.Error())
+			os.Exit(1)
+		}
 
-	//Create password hash from data on the form
-	//Hash username, salt and password
+		responseData, err := ioutil.ReadAll(response.Body)
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	//Compare password hash
+		var responseObject Response
+		json.Unmarshal(responseData, &responseObject)
 
-	//If fail loop through the 3 times
+		user := User{}
+		users := []User{}
+		for i := 0; i < len(responseObject.Users); i++ {
+			user.ID = responseObject.Users[i].ID
+			user.UserName = responseObject.Users[i].UserName
+			user.UserEmail = responseObject.Users[i].UserEmail
+			user.FName = responseObject.Users[i].FName
+			user.LName = responseObject.Users[i].LName
+			user.Password = responseObject.Users[i].Password
+			user.PasswordChange = responseObject.Users[i].PasswordChange
+			user.PasswordExpired = responseObject.Users[i].PasswordExpired
+			user.LastLogon = responseObject.Users[i].LastLogon
+			user.AccountLocked = responseObject.Users[i].AccountLocked
+			users = append(users, user)
+		}
+		//Create password hash from data on the form
+		//Hash username, salt and password
+		hasher := sha512.New()
+		hasher.Write([]byte(username))
+		hasher.Write([]byte(pwdSalt))
+		hasher.Write([]byte(password))
+		password = base64.URLEncoding.EncodeToString(hasher.Sum(nil))
 
-	//If successful move to Index page
+		//Compare password hash
+		if user.Password == password {
+			//If successful move to home page
+			http.Redirect(w, r, "/Home", 301)
+		}
+		//If fail loop through the 3 times
+	}
+
 }
 
 //InsertUser saves the data from the NewUser page to the database
@@ -148,6 +187,7 @@ func main() {
 	mux.HandleFunc("/NewUser", NewUser)
 	mux.HandleFunc("/insertuser", InsertUser)
 	mux.HandleFunc("/UserList", UserList)
+	mux.HandleFunc("/verify", VerifyLogon)
 
 	fileServer := http.FileServer(http.Dir("./img/"))
 
